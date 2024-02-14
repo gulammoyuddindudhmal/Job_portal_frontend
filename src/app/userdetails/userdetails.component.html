@@ -1,0 +1,102 @@
+<section class="first">
+  <img src="../../assets/back.svg" (click)="onClickCancel()" />
+  <p>Create an account</p>
+  <button (click)="onClickCancel()">CANCEL</button>
+  <button disabled="true" class="createbtn">Create</button>
+</section>
+<section class="second">
+  <div>
+    <div class="circle circle-green">1</div>
+    <p>Personal Information</p>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <div class="circle">2</div>
+    <p>Qualifications</p>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <div class="circle">3</div>
+    <p>Review and Proceed</p>
+  </div>
+</section>
+<section class="third" [formGroup]="details">
+  <div class="form">
+    <div class="inputcontainer">
+      <p>First Name*</p>
+      <input type="text" formControlName="firstName" />
+    </div>
+    <div class="inputcontainer">
+      <p>Last Name*</p>
+      <input type="text" formControlName="lastName" />
+    </div>
+    <div class="inputcontainer">
+      <p>Email*</p>
+      <input type="email" formControlName="email" />
+    </div>
+    <div class="phonenumbercont">
+      <p>Phone Number*</p>
+      <div>
+        +
+        <span class="countryCode">91</span>
+        <input type="text" class="phoneNumber" formControlName="phone" />
+      </div>
+    </div>
+    <div class="resumeUpload">
+      <input type="file" id="uploadResume" formControlName="resume" />
+      <label for="uploadResume">
+        <img src="../../assets/Upload_black_24dp.svg" />
+        <span>Upload Resume</span>
+      </label>
+    </div>
+    <div class="inputcontainer">
+      <p>Enter Portfolio URL (if any)</p>
+      <input type="text" formControlName="portfolioURL" />
+    </div>
+    <div class="container">
+      <p>Preferred Job Roles*</p>
+      <div class="check" *ngFor="let role of r">
+        <input
+          type="checkbox"
+          [id]="role.id"
+          (change)="onChangeCheck($event)"
+          [checked]="role.isChk"
+        />
+        <label [for]="role.id"></label>
+        <span>{{ role.value }}</span>
+      </div>
+    </div>
+    <div class="inputcontainer">
+      <p>
+        If You Are Registering Via A Referral, Please Mention Full Name Of The
+        Employee Who Referred You
+      </p>
+      <input type="text" formControlName="referrer" />
+    </div>
+    <div class="check">
+      <input
+        type="checkbox"
+        id="sendUpdates"
+        (change)="onChangeCheck($event)"
+        [checked]="sendUpd"
+      />
+      <label for="sendUpdates"></label>
+      <span for="sendUpdates">Send me job related updates via mail</span>
+    </div>
+  </div>
+  <div class="profilephoto">
+    <div>
+      <img src="../../assets/account_circle.svg" />
+      <input type="file" id="uploadPhoto" formControlName="profilePhoto" />
+      <label for="uploadPhoto">UPLOAD DISPLAY PICTURE</label>
+      <p>Max. image size: 5 MB</p>
+    </div>
+  </div>
+</section>
+<button
+  class="nextbtn"
+  (click)="onClickNext()"
+  [disabled]="!(details.valid && or())"
+>
+  NEXT
+</button>

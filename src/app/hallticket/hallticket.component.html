@@ -1,0 +1,37 @@
+<section>
+  <div class="check">
+    <img src="../../assets/check_black_24dp.svg" />
+  </div>
+  <h3>
+    Congratulations ! You have successfully applied for the walk-in opportunity
+  </h3>
+  <div class="horizontal-divider"></div>
+  <div>
+    <div class="graycolor">Date & Time of Walk-In :</div>
+    <p class="date">{{ walkin?.date }}</p>
+    <p>{{ timeslot }}</p>
+  </div>
+  <div class="horizontal-divider"></div>
+  <div>
+    <div class="graycolor">Venue of Walk-In :</div>
+    <p>
+      {{ walkin?.location?.venue }}<br />
+      {{ walkin?.location?.address }}<br />
+      {{ walkin?.city }} - {{ walkin?.location?.pincode }}<br />
+      {{ walkin?.location?.phone }}
+    </p>
+  </div>
+  <div class="horizontal-divider"></div>
+  <div>
+    <div>THINGS TO REMEMBER :</div>
+    <p>
+      - Please report 30 MINUTES prior to your reporting time.<br />
+      - Download your Hall Ticket from below and carry it with you during your
+      Walk-In.
+    </p>
+  </div>
+  <div class="horizontal-divider"></div>
+  <div class="buttoncontainer">
+    <button>DOWNLOAD HALL TICKET</button>
+  </div>
+</section>

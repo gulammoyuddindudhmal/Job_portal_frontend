@@ -1,0 +1,129 @@
+header {
+    background: url(../../assets/header\ pattern\ svg.svg);
+    height: 47px;
+    justify-self: start;
+    flex: 0 0 40px;
+    border-bottom: 2px solid #31b9e4;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .divider {
+    border: 1px solid #0000001f;
+  }
+  .vertical {
+    height: 100%;
+  }
+  .horizontal {
+    width: 100%;
+  }
+  .modal {
+    width: 488px;
+    background-color: #ffffff;
+    border-top: 4px solid #3ac7ec;
+    padding: 24px 32px;
+    font-size: 14px;
+    margin: 50px auto auto auto;
+  }
+  .modal-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 0px 32px 0px;
+    font-size: 26px;
+  }
+  .creds {
+    margin-bottom: 32px;
+    input{
+        width: 100%;
+        font-size: 16px;
+        border: none;
+    }
+  }
+  .pass {
+    margin-bottom: 24px;
+    div{
+        display: flex;
+        img{
+            margin-left: auto;
+             flex: 0 0 22px;
+        }
+        input{
+            flex: 1 1 auto;
+            font-size: 16px;
+            border: none;
+        }
+    }
+  }
+  .forgot {
+    margin: 0px;
+    font-size: 14px;
+    color: #1f7a54;
+    text-align: end;
+  }
+  .remb {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+    font-size: 16px;
+    label{
+      width:18px;
+      height:24px;
+      margin-right: 9px;
+      background: url(../../assets/check_box_outline_blank_black_24dp.svg);
+      background-size: cover;
+    }
+    input:checked ~ label{
+      background: url(../../assets/check_box_black_24dp.svg);
+    }
+    input{
+      opacity:0;
+      z-index: -1;
+      position:absolute;
+      accent-color: #1F7A54;
+    }
+  }
+  .submit {
+    height: 78px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button{
+        color: #1f2834;
+        width: 215.51px;
+        height: 40px;
+        background-color: #3fd28b;
+        box-shadow: 0px 3px 5px #0000003d;
+        border: none; 
+    }
+  }
+  .implinks {
+    display: flex;
+    justify-content: center;
+    margin:90px 0px 40px;
+    height: 20px;
+    a{
+        margin: 0px 8px 0px 10px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #1f7a54;
+    }
+  }
+  .reg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p{
+      margin: 0px;
+      font-size: 12px;
+    }
+    .link{
+      font-size: 16px;
+      text-transform: uppercase;
+      color:#1F7A54;
+      cursor: pointer;
+    }
+  }
+  input[type=text]:focus{
+    border: none;
+  }

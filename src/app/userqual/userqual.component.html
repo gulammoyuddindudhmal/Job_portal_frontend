@@ -1,0 +1,260 @@
+<section class="first">
+  <img src="../../assets/back.svg" (click)="onClickPrev()" />
+  <p>Create an account</p>
+  <button (click)="onClickCancel()">CANCEL</button>
+  <button disabled="true" class="createbtn">Create</button>
+</section>
+<section class="second">
+  <div>
+    <div class="circle circle-green">
+      <img src="../../assets/editicon.svg" />
+    </div>
+    <p>Personal Information</p>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <div class="circle circle-green">2</div>
+    <p>Qualifications</p>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <div class="circle">3</div>
+    <p>Review and Proceed</p>
+  </div>
+</section>
+<section class="third">
+  <div class="summary" (click)="onClickEdu()">
+    <p>Educational Qualifications</p>
+    <div class="vertical-divider"></div>
+    <img [src]="edu.img" />
+  </div>
+  <div class="details" [style.display]="edu.display" [formGroup]="eduQ">
+    <div class="">
+      <p>Aggregate Percentage*</p>
+      <input type="number" formControlName="percentage" />
+    </div>
+    <div>
+      <p>Year of Passing*</p>
+      <select class="year" formControlName="yop">
+        <option>2020</option>
+      </select>
+    </div>
+    <div class="container">
+      <div>
+        <p>Qualification*</p>
+        <select formControlName="qaulification">
+          <option>Bachelor in Technology (B.Tech)</option>
+        </select>
+      </div>
+      <div>
+        <p>Stream*</p>
+        <select formControlName="stream">
+          <option>Information Technology</option>
+        </select>
+      </div>
+    </div>
+    <div class="container">
+      <div>
+        <p>College*</p>
+        <select formControlName="college" (change)="onChangeCollege()">
+          <option>Pune Institute of Technology (PIT)</option>
+          <option>other</option>
+        </select>
+      </div>
+      <div>
+        <p>If others, please enter your college name</p>
+        <input type="text" formControlName="others" />
+      </div>
+    </div>
+    <div>
+      <p>Where is your college located?*</p>
+      <input type="text" formControlName="location" />
+    </div>
+  </div>
+</section>
+<section class="fourth">
+  <div class="summary" (click)="onClickPro()">
+    <p>Professional Qualifications</p>
+    <div class="vertical-divider"></div>
+    <img [src]="pro.img" />
+  </div>
+  <div class="details" [style.display]="pro.display">
+    <div>
+      <p>Applicant Type*</p>
+      <div class="radio">
+        <div class="radiocontainer">
+          <input
+            type="radio"
+            id="fresher"
+            name="experience"
+            (change)="onChangeApplitype($event)"
+            [checked]="dispExp == 'none'"
+          />
+          <label for="fresher" class="radiomark"></label>
+          <label for="fresher">Fresher</label>
+        </div>
+        <div class="radiocontainer">
+          <input
+            type="radio"
+            id="experienced"
+            name="experience"
+            [checked]="dispExp == 'block'"
+            (change)="onChangeApplitype($event)"
+          />
+          <label for="experienced" class="radiomark"></label>
+          <label for="experienced">Experienced</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="details extra-detail"
+    [style.display]="pro.display"
+    [formGroup]="proQ"
+  >
+    <div class="inputcontainer" [style.display]="dispExp">
+      <p>Years of Experience*</p>
+      <input type="number" formControlName="yoe" />
+    </div>
+    <div class="inputcontainer" [style.display]="dispExp">
+      <p>Current CTC* (In Rupees)</p>
+      <input type="number" formControlName="currentCTC" />
+    </div>
+    <div class="inputcontainer" [style.display]="dispExp">
+      <p>Expected CTC* (In Rupees)</p>
+      <input type="number" formControlName="expectedCTC" />
+    </div>
+    <div class="check" [style.display]="dispExp">
+      <p>Select All The Technologies You Expertise In*</p>
+      <div class="checkcontainer" *ngFor="let skill of expertise">
+        <input
+          type="checkbox"
+          [id]="skill.id"
+          [value]="skill.value"
+          (change)="onChangeCheck($event)"
+          [checked]="skill.isChk"
+        />
+        <label [for]="skill.id" class="checkmark"></label>
+        <label [for]="skill.id">{{ skill.value }}</label>
+      </div>
+      <div class="inputcontainer">
+        <p>If others, please mention</p>
+        <input type="text" formControlName="othersExp" />
+      </div>
+    </div>
+    <div class="check">
+      <p>Select All The Technologies You Are Familiar In</p>
+      <div class="checkcontainer" *ngFor="let skill of familiar">
+        <input
+          type="checkbox"
+          [id]="skill.id"
+          (change)="onChangeCheck($event)"
+          [value]="skill.value"
+          [checked]="skill.isChk"
+        />
+        <label [for]="skill.id" class="checkmark"></label>
+        <label [for]="skill.id">{{ skill.value }}</label>
+      </div>
+      <div class="inputcontainer">
+        <p>If others, please mention</p>
+        <input type="text" formControlName="othersFam" />
+      </div>
+    </div>
+    <div class="notice" [style.display]="dispExp">
+      <div>
+        <p>Are you currently on notice period?*</p>
+        <div class="radio">
+          <div class="radiocontainer">
+            <input
+              type="radio"
+              id="onnotice"
+              value="true"
+              name="onNotice"
+              (change)="onChangeOnNotice($event)"
+              [checked]="onNotice"
+            />
+            <label for="onnotice" class="radiomark"></label>
+            <label for="onnotice">Yes</label>
+          </div>
+          <div class="radiocontainer">
+            <input
+              type="radio"
+              id="offnotice"
+              value="false"
+              name="onNotice"
+              (change)="onChangeOnNotice($event)"
+              [checked]="!onNotice"
+            />
+            <label for="offnotice" class="radiomark"></label>
+            <label for="offnotice">No</label>
+          </div>
+        </div>
+      </div>
+      <div class="notice-extra">
+        <div>
+          <p>If Yes, when will your notice period end?*</p>
+          <input type="date" formControlName="noticeEnd" />
+        </div>
+        <div>
+          <p>How long is your notice period?* (Mention in months)</p>
+          <select formControlName="noticeDuration">
+            <option>1 month</option>
+            <option>2 months</option>
+            <option>3 months</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <p>Have You Appeared For Any Test By Zeus in the past 12 months?*</p>
+        <div class="radio">
+          <div class="radiocontainer">
+            <input
+              type="radio"
+              id="applied"
+              name="haveAppeared"
+              value="true"
+              (change)="onChangehaveAppeared($event)"
+              [checked]="haveAppeared"
+            />
+            <label for="applied" class="radiomark"></label>
+            <label for="applied">Yes</label>
+          </div>
+          <div class="radiocontainer">
+            <input
+              type="radio"
+              id="notapplied"
+              name="haveAppeared"
+              value="false"
+              (change)="onChangehaveAppeared($event)"
+              [checked]="!haveAppeared"
+            />
+            <label for="notapplied" class="radiomark"></label>
+            <label for="notapplied">No</label>
+          </div>
+        </div>
+      </div>
+      <div class="haveapplied">
+        <p>If Yes, which role did you apply for?</p>
+        <input type="text" formControlName="roleAppeared" />
+      </div>
+    </div>
+  </div>
+</section>
+<div class="buttoncontainer">
+  <button (click)="onClickPrev()">PREVIOUS</button>
+  <button
+    (click)="onClickNext()"
+    [disabled]="
+      !(
+        eduQ.valid &&
+        proQ.valid &&
+        expertise.length != 0 &&
+        familiar.length != 0
+      )
+    "
+  >
+    NEXT
+  </button>
+</div>

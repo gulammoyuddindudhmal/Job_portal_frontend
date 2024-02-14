@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: Quicksand;
+    src: url(assets/Quicksand-VariableFont_wght.ttf);
+  }
+html{
+    margin: 0px;
+}
+body{
+
+    margin:0px;
+    background-color: #EEEEEE;
+    
+    font-family: Quicksand;
+    font-weight:600;
+}

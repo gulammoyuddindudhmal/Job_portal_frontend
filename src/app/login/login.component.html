@@ -1,0 +1,51 @@
+<header>
+  <img src="../../assets/logo used in header.svg" alt="Quantum logo" />
+</header>
+<div class="modal">
+  <div class="modal-heading">Log in</div>
+  <form [formGroup]="creds" (submit)="onSubmit()">
+    <div class="creds">
+      <input
+        type="email"
+        required
+        placeholder="Email*"
+        formControlName="email"
+      />
+      <div class="divider horizontal"></div>
+      <p class="forgot">FORGOT USERNAME?</p>
+    </div>
+    <div class="pass">
+      <div>
+        <input
+          [type]="typePass"
+          required
+          placeholder="Password*"
+          formControlName="password"
+        />
+        <img
+          src="../../assets/visibility_black_24dp.svg"
+          (click)="onClickPreview()"
+        />
+      </div>
+      <div class="divider horizontal"></div>
+      <p class="forgot">FORGOT PASSWORD?</p>
+    </div>
+    <div class="remb">
+      <input type="checkbox" id="rememberme" formControlName="remember" />
+      <label for="rememberme" class=""></label>
+      <span for="rememberme">Remember Me</span>
+    </div>
+    <div class="submit">
+      <button type="submit" [disabled]="!creds.valid">LOG IN</button>
+    </div>
+  </form>
+  <div class="reg">
+    <p>Not registered yet?</p>
+    <p class="link" (click)="onClickNext()">create an account</p>
+  </div>
+</div>
+<footer class="implinks">
+  <a href="#">About</a>
+  <div class="divider vertical"></div>
+  <a href="#">Contact Us</a>
+</footer>

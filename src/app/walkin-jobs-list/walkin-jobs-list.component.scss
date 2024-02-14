@@ -1,0 +1,144 @@
+p{
+    margin:0px;
+    color:#222222;
+}
+.job-list{
+    margin:35px 24px 28px 24px;
+    font-size:12px;
+}
+.expiry{
+    position: absolute;
+    width: 107px;
+    height: 18px;
+    background-color: #FFE4E6;
+    border-radius: 2px;
+    right:24px;
+    top:-9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p{
+        color:#D10107;
+        font: normal normal normal 12px/14px Museo Sans 500;
+    }
+}
+.job{
+    position: relative;
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 6px #0000003D;
+    padding: 16px;
+    
+    margin-bottom: 24px;
+    h3{
+        color: #1F7A54;
+        margin:0px 0px 16px 0px;
+        font-size: 18px;
+    }
+}
+.resdisp{
+    display:block;
+}
+.job-info{
+    display:flex;
+    align-items:center;
+    margin-top: 8px;
+    h5{
+        margin:0px;
+        font-size: 14px;
+    }
+    img{
+        width:16px;
+        height:16px;
+        margin-right: 4px;
+    }
+}
+.job-role-list{
+    display: flex;
+    align-items: center;
+    margin-top:8px;
+}
+.job-role{
+    
+    display:flex;
+    align-items: center;
+    div{
+        width:24px;
+        height:24px;
+        margin-right: 8px;
+        border:1px solid #222222;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width:16px;
+            height: 16px;
+        }
+    }
+    p{
+        font-size: 14px;
+    }
+}
+.extra-info{
+    width: 218px;
+    height:18px;
+    background-color: #EEDD6B;
+    border-radius: 9px;
+    margin-top:16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p{
+        font-size: 10px;
+        letter-spacing: 0.25px;
+        color:#222222;
+        border:1px solid #00000000;
+        display: flex;
+    }
+}
+.button-container{
+    margin-top:24px;
+    display: flex;
+    justify-content: center;
+    button{
+        width:168px;
+        height:28px;
+        background-color: #3FD28B;
+        border-radius: 2px;
+        box-shadow: 0px 3px 5px #0000003D;
+        text-align: center;
+        color:#25313F;
+        border:none;
+    }
+
+}
+.graycolor{
+    color:#666666;
+}
+.vertical-divider{
+    background-color: #000000;
+    opacity: 0.12;
+    width:1px;
+    height: 12px;
+    margin:0px 8px 0px 8px;
+}
+.horizontal-divider{
+    background-color: #000000;
+    opacity: 0.12;
+    height:1px;
+    margin:16px 0px 16px 0px;
+}
+@media screen and (max-width:767px){
+    .job-role-list{
+        display: block;
+    }
+    .resdisp{
+        display:none;
+    }
+    .job-role{
+        margin-top: 8px;
+    }
+    .job-list{
+        margin:35px 16px 28px 16px;
+    }
+}

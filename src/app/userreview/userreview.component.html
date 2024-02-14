@@ -1,0 +1,195 @@
+<section class="first">
+  <img src="../../assets/back.svg" (click)="onClickPrev()" />
+  <p>Create an account</p>
+  <button (click)="onClickCancel()">CANCEL</button>
+  <button class="createbtn" (click)="onClickCreate()">Create</button>
+</section>
+<section class="second">
+  <div>
+    <div class="circle circle-green">
+      <img src="../../assets/editicon.svg" />
+    </div>
+    <p>Personal Information</p>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <div class="circle circle-green">
+      <img src="../../assets/editicon.svg" />
+    </div>
+    <p>Qualifications</p>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <div class="circle circle-green">3</div>
+    <p>Review and Proceed</p>
+  </div>
+</section>
+<div class="section-title">
+  <p>Personal Information</p>
+  <img src="../../assets/editicon_green.svg" />
+  <span (click)="onEditPersonal()">Edit</span>
+</div>
+<section class="third">
+  <div class="detail">
+    <div class="container">
+      <p>First Name</p>
+      <div>{{ newUser.firstName }}</div>
+    </div>
+    <div class="container">
+      <p>Last Name</p>
+      <div>{{ newUser.lastName }}</div>
+    </div>
+    <div class="container">
+      <p>Email</p>
+      <div>{{ newUser.email }}</div>
+    </div>
+    <div class="container">
+      <p>Phone Number</p>
+      <div>
+        <span>+</span>
+        <span>91</span>
+        <span>{{ newUser.phone }}</span>
+      </div>
+    </div>
+    <div class="resume">
+      <img src="../../assets/upload_in_review.svg" />
+      <p>Upload Resume</p>
+      <p>{{ newUser.resume }}</p>
+    </div>
+    <div class="container">
+      <p>Enter Portfolio URL (if any)</p>
+      <div>{{ newUser.portfolioURL }}</div>
+    </div>
+    <div class="container">
+      <p>Preferred Job Roles</p>
+      <div *ngFor="let role of newUser.roles">{{ roles[role].title }}</div>
+    </div>
+    <div class="container">
+      <p>
+        If You Are Registering Via A Referral, Please Mention Full Name Of The
+        Employee Who Referred You
+      </p>
+      <div>{{ newUser.referrer ? newUser.referrer : "-" }}</div>
+    </div>
+    <div class="last-info">
+      <img />
+      <p>Send me job related updates via mail</p>
+    </div>
+  </div>
+  <div class="profile">
+    <img src="../../assets/account_circle.svg" class="profilephoto" />
+  </div>
+</section>
+<div class="section-title">
+  <p>Qualifications</p>
+  <img src="../../assets/editicon_green.svg" />
+  <span (click)="onClickPrev()">Edit</span>
+</div>
+<section class="fourth">
+  <div class="section-head">Educational Qualifications</div>
+  <div class="detail">
+    <div class="container">
+      <p>Aggregate Percentage</p>
+      <div>{{ newUser.percentage }}</div>
+    </div>
+    <div class="container">
+      <p>Year of Passing</p>
+      <div>{{ newUser.yop }}</div>
+    </div>
+    <div class="multicontainer">
+      <div class="container">
+        <p>Qualification</p>
+        <div>{{ newUser.qualification }}</div>
+      </div>
+      <div class="container">
+        <p>Stream</p>
+        <div>{{ newUser.stream }}</div>
+      </div>
+    </div>
+    <div class="multicontainer">
+      <div class="container">
+        <p>College</p>
+        <div>{{ newUser.college }}</div>
+      </div>
+      <div class="container">
+        <p>If others, please enter your college name</p>
+        <div>{{ newUser.otherCollege }}</div>
+      </div>
+    </div>
+    <div class="container">
+      <p>Where is your college located?</p>
+      <div>{{ newUser.collegelocation }}</div>
+    </div>
+  </div>
+</section>
+
+<section class="fourth">
+  <div class="section-head">Professional Qualifications</div>
+  <div class="detail">
+    <div class="container">
+      <p>Applicant Type</p>
+      <div>{{ newUser.applicantType }}</div>
+    </div>
+  </div>
+  <div class="detail extra-detail">
+    <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+      <p>Years of Experience</p>
+      <div>{{ newUser.yoe }}</div>
+    </div>
+    <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+      <p>Current CTC (In Rupees)</p>
+      <div>{{ newUser.currentCTC }}</div>
+    </div>
+    <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+      <p>Expected CTC (In Rupees)</p>
+      <div>{{ newUser.expectedCTC }}</div>
+    </div>
+    <div>
+      <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+        <p>Select All The Technologies You Expertise In</p>
+        <div *ngFor="let skill of newUser.expertise">{{ skill }}</div>
+      </div>
+      <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+        <p>If others, please mention</p>
+        <div>-</div>
+      </div>
+    </div>
+    <div>
+      <div class="container">
+        <p>Select All The Technologies You are familiar In</p>
+        <div *ngFor="let skill of newUser.familiar">{{ skill }}</div>
+      </div>
+      <div class="container">
+        <p>If others, please mention</p>
+        <div>-</div>
+      </div>
+    </div>
+    <div *ngIf="newUser.applicantType == 'experienced'">
+      <div class="container">
+        <p>Are you currently on notice period?</p>
+        <div>{{ newUser.onNotice ? "Yes" : "No" }}</div>
+      </div>
+      <div class="multicontainer" *ngIf="newUser.onNotice">
+        <div class="container">
+          <p>If Yes, when will your notice period end?</p>
+          <div>{{ newUser.noticeEnd }}</div>
+        </div>
+        <div class="container">
+          <p>How long is your notice period? (Mention in months)</p>
+          <div>{{ newUser.noticeDuration }}</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="container">
+        <p>Have You Appeared For Any Test By Zeus in the past 12 months?</p>
+        <div>{{ newUser.haveAppeared ? "Yes" : "No" }}</div>
+      </div>
+      <div class="container">
+        <p>If Yes, which role did you apply for?</p>
+        <div>{{ newUser.roleAppeared }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+<button class="prev" (click)="onClickPrev()">PREVIOUS</button>

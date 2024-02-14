@@ -1,0 +1,227 @@
+p{
+    margin:0px;
+    color:#222222;
+}
+.graycolor{
+    color:#666666;
+}
+.vertical-divider{
+    background-color: #000000;
+    opacity: 0.12;
+    width:1px;
+    height: 12px;
+    margin:0px 8px 0px 8px;
+}
+.horizontal-divider{
+    background-color: #000000;
+    opacity: 0.12;
+    height:1px;
+    margin:16px 0px 16px 0px;
+}
+section{
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 6px #0000003D;
+    
+}
+.first{
+    margin:26px 24px 0px 24px;
+    
+}
+.job{
+    position: relative;
+    padding: 16px;
+    font-size: 12px;
+}
+.heading{
+    display: flex;
+    
+    h3{
+        color: #1F7A54;
+        margin:0px 0px 16px 0px;
+        font-size: 18px;
+    }
+}
+#applybtn{
+    margin:0px 16px 0px auto;
+    width: 73px;
+    height: 28px;
+    background-color: #3FD28B;
+    color:#25313F;
+    border:none;
+    border-radius: 2px;
+    box-shadow: 0px 3px 5px #0000003D;
+}
+#applybtn:disabled{
+    opacity: 0.30;
+}
+.job-info{
+    display:flex;
+    align-items:center;
+    margin-top: 8px;
+    h5{
+        margin:0px;
+        font-size: 14px;
+    }
+    img{
+        width:16px;
+        height:16px;
+        margin-right: 4px;
+    }
+}
+.job-role-list{
+    display: flex;
+    align-items: center;
+    margin:8px 0px 8px 0px;
+    font-size: 14px;
+}
+.job-role{
+    
+    display:flex;
+    align-items: center;
+    
+    .roleimgcont{
+        width:24px;
+        height:24px;
+        margin-right: 8px;
+        border:1px solid #222222;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width:16px;
+            height: 16px;
+        }
+    }
+    p{
+        font-size: 14px;
+        color:#1F7A54;
+    }
+}
+.dropdownDetails{
+    font-size: 14px;
+}
+.summary{
+    display: flex;
+    align-items: center;
+    background-color: #DBEFFF;
+    height:40px;
+    padding:0px 10px 0px 16px;
+    font-size: 16px;
+    .vertical-divider{
+        height: 100%;
+        opacity:0.25;
+        margin-left:auto;
+    }
+}
+.details{
+    padding: 16px;
+    div{
+        
+        font-size: 12px;
+    }
+    p{
+        margin-top: 16px;
+    }
+    .ins{
+        margin-top: 16px;
+        font-size: 14px;
+    }
+}
+.second{
+    margin:24px;
+    color:#222222;
+    font-size: 16px;
+    padding:16px;
+    .heading{
+        margin-bottom: 24px;
+    }
+    .graycolor{
+        font-size: 12px;
+    }
+}
+.radiocontainer{
+    margin-top:16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    .radiomark{
+        width:20px;
+        height: 24px;
+        margin-right: 8px;
+        background: url(../../assets/radio_button_unchecked_black_24dp.svg);
+        background-size: cover;
+    }
+    input:checked ~ .radiomark{
+        background: url(../../assets/radio_button_checked_black_24dp.svg);
+    }
+    input{
+        position: absolute;
+        z-index: -1;
+        opacity:0;
+    }
+}
+.checkcontainer{
+    margin-top:16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    label{
+        width:18px;
+        height:24px;
+        margin-right: 9px;
+        background: url(../../assets/check_box_outline_blank_black_24dp.svg);
+        background-size: cover;
+    }
+    input:checked ~ label{
+        background: url(../../assets/check_box_black_24dp.svg);
+    }
+    input{
+        opacity:0;
+        z-index: -1;
+        position:absolute;
+        accent-color: #1F7A54;
+    }
+}
+.fileinput{
+    font-size: 14px;
+    position: relative;
+    input{
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+    }
+    label{
+        cursor: pointer;
+        color:#1F7A54;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+    }
+    img{
+        margin-right: 8px;
+    }
+}
+.roledetails{
+    margin:0px 24px 16px 24px;
+    .summary{
+        height: 56px;
+    }
+    .graycolor{
+        font-size: 12px;
+    }
+    p{
+        font-size: 14px;
+    }
+}
+@media screen and (max-width:767px){
+    .job-role-list{
+        display: block;
+    }
+    .resdisp{
+        display:none;
+    }
+    .job-role{
+        margin-top: 8px;
+    }
+}

@@ -1,0 +1,37 @@
+<section class="job-list" *ngFor="let job of walkinJobs">
+  <div class="job">
+    <div class="expiry" *ngIf="job.expiresIn">
+      <p>Expires in {{ job.expiresIn }} days</p>
+    </div>
+    <h3>{{ job.title }}</h3>
+    <div>
+      <p class="graycolor">Date & Time :</p>
+      <div class="job-info">
+        <h5>{{ job.date }}</h5>
+        <div class="vertical-divider"></div>
+        <img src="../../assets/location_on_black_24dp.svg" class="graycolor" />
+        <p class="graycolor">{{ job.city }}</p>
+      </div>
+    </div>
+    <div class="horizontal-divider"></div>
+    <div>
+      <p class="graycolor">Job Roles :</p>
+      <div class="job-role-list" *ngFor="let role of job.roles">
+        <div class="job-role">
+          <div>
+            <img [src]="role.img" />
+          </div>
+          <p>{{ role.title }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="extra-info" *ngIf="job.extraInfo">
+      <p>{{ job.extraInfo }}</p>
+    </div>
+    <div class="button-container">
+      <button (click)="onClick($event)" [value]="job.id">
+        VIEW MORE DETAILS
+      </button>
+    </div>
+  </div>
+</section>
