@@ -31,12 +31,20 @@ export class LoginComponent {
     this.router.navigate(['/user/personal'])
   }
   onSubmit(){
-    if(this.userservice.logIn(this.creds.value.email??'',this.creds.value.password??'')){
-      window.alert('logged in successfully!')
-      this.router.navigate(['/'])
-    }else{
-      window.alert('Invalid Credentials')
-    }    
+    this.userservice
+    .logIn(this.creds.controls['email'].value??'',this.creds.controls['password'].value??'')
+    .subscribe(
+      res=>{
+        var token = res
+        localStorage.setItem('access_token',token);
+        window.alert("Logged in successfully");
+        this.router.navigate(['/']);
+      },
+      error=>{
+        console.log(error);
+        window.alert("Login failed!! Please Try Again.")
+      }
+    )
   }
 }
 

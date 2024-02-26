@@ -62,7 +62,7 @@
     </div>
     <div class="container">
       <p>Preferred Job Roles</p>
-      <div *ngFor="let role of newUser.roles">{{ roles[role].title }}</div>
+      <div *ngFor="let role of newUser.roles">{{ getRoleTitle(role) }}</div>
     </div>
     <div class="container">
       <p>
@@ -128,30 +128,30 @@
   <div class="detail">
     <div class="container">
       <p>Applicant Type</p>
-      <div>{{ newUser.applicantType }}</div>
+      <div>{{ newUser.applicantType ? "experienced" : "fresher" }}</div>
     </div>
   </div>
   <div class="detail extra-detail">
-    <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+    <div class="container" *ngIf="newUser.applicantType">
       <p>Years of Experience</p>
       <div>{{ newUser.yoe }}</div>
     </div>
-    <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+    <div class="container" *ngIf="newUser.applicantType">
       <p>Current CTC (In Rupees)</p>
       <div>{{ newUser.currentCTC }}</div>
     </div>
-    <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+    <div class="container" *ngIf="newUser.applicantType">
       <p>Expected CTC (In Rupees)</p>
       <div>{{ newUser.expectedCTC }}</div>
     </div>
     <div>
-      <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+      <div class="container" *ngIf="newUser.applicantType">
         <p>Select All The Technologies You Expertise In</p>
         <div *ngFor="let skill of newUser.expertise">{{ skill }}</div>
       </div>
-      <div class="container" *ngIf="newUser.applicantType == 'experienced'">
+      <div class="container" *ngIf="newUser.applicantType">
         <p>If others, please mention</p>
-        <div>-</div>
+        <div>{{ newUser.otherExp }}</div>
       </div>
     </div>
     <div>
@@ -161,10 +161,10 @@
       </div>
       <div class="container">
         <p>If others, please mention</p>
-        <div>-</div>
+        <div>{{ newUser.otherFam }}</div>
       </div>
     </div>
-    <div *ngIf="newUser.applicantType == 'experienced'">
+    <div *ngIf="newUser.applicantType">
       <div class="container">
         <p>Are you currently on notice period?</p>
         <div>{{ newUser.onNotice ? "Yes" : "No" }}</div>

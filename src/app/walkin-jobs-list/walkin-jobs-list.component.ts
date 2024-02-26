@@ -6,6 +6,7 @@ import { Walkinjobs } from '../interfaces/walkinjobs';
 
 import { WalkinService } from '../services/walkin.service';
 import { UserauthService } from '../services/userauth.service';
+import { Walkins } from '../interfaces/Walkins';
 @Component({
   selector: 'app-walkin-jobs-list',
   standalone: true,
@@ -14,12 +15,14 @@ import { UserauthService } from '../services/userauth.service';
   styleUrl: './walkin-jobs-list.component.scss'
 })
 export class WalkinJobsListComponent {
-  walkinJobs:Walkinjobs[]=[];
+  walkinJobs:Walkins[]=[];
   walkinservice:WalkinService=inject(WalkinService);
   userservice:UserauthService=inject(UserauthService);
   isLogedIn:boolean;
   constructor(private router:Router){
-    this.walkinJobs=this.walkinservice.getAllWalkinJobs();
+    this.walkinservice.getAllWalkinJobs().then((t:Walkins[])=>{
+      this.walkinJobs=t;
+    })
     this.isLogedIn=this.userservice.isLoggedIn();
   }
   onClick(event:Event){

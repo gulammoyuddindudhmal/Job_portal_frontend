@@ -39,32 +39,27 @@
       <div>
         <div class="graycolor">General Instructions :</div>
         <div class="ins">
-          <div *ngFor="let ins of job?.genIns">-{{ ins }}</div>
+          <div [innerHTML]="job?.genIns"></div>
         </div>
       </div>
       <div class="horizontal-divider"></div>
       <div>
         <div class="graycolor">Instructions for the Exam :</div>
         <div class="ins">
-          <div *ngFor="let ins of job?.examIns">-{{ ins }}</div>
+          <div [innerHTML]="job?.examIns"></div>
         </div>
       </div>
       <div class="horizontal-divider"></div>
       <div>
         <div class="graycolor">Minimum System Requirements :</div>
         <div class="ins">
-          <div *ngFor="let ins of job?.sysReq">-{{ ins }}</div>
+          <div [innerHTML]="job?.sysReq"></div>
         </div>
       </div>
       <div class="horizontal-divider"></div>
       <div>
         <div class="graycolor">Process :</div>
-        <p *ngIf="job?.process">
-          {{ job?.process?.at(0) }}<br /><br /><br />
-          {{ job?.process?.at(1) }}<br />
-          {{ job?.process?.at(2) }}<br /><br /><br />
-          {{ job?.process?.at(3) }}
-        </p>
+        <p [innerHTML]="job?.process"></p>
       </div>
     </div>
   </div>
@@ -102,20 +97,20 @@
   </div>
   <div class="horizontal-divider"></div>
   <div class="fileinput">
-    <input type="file" id="inputResume" />
+    <input type="file" id="inputResume" [(ngModel)]="resume" />
     <label for="inputResume">
       <img src="../../assets/Upload_black_24dp.svg" />
       <span>Upload Updated Resume</span>
     </label>
   </div>
 </section>
-<section class="roledetails" *ngFor="let role of job?.roles">
-  <div class="summary" [id]="role.id" (click)="onRoleClick($event)">
+<section class="roledetails" *ngFor="let role of job?.roles; let i = index">
+  <div class="summary" [id]="i" (click)="onRoleClick($event)">
     <p>{{ role.title }}</p>
     <div class="vertical-divider"></div>
-    <img [src]="roles[role.id].img" />
+    <img [src]="roles[i].img" />
   </div>
-  <div class="details" [style.display]="roles[role.id].display">
+  <div class="details" [style.display]="roles[i].display">
     <div>
       <div class="graycolor">gross compensation package :</div>
       <p>{{ role.package }}</p>
@@ -124,14 +119,14 @@
     <div>
       <div class="graycolor">Role Description :</div>
       <div class="ins">
-        <div *ngFor="let ins of role.description">-{{ ins }}</div>
+        <div [innerHTML]="role.description"></div>
       </div>
     </div>
     <div class="horizontal-divider"></div>
     <div>
       <div class="graycolor">Requirements :</div>
       <div class="ins">
-        <div *ngFor="let ins of role.requirements">-{{ ins }}</div>
+        <div [innerHTML]="role.requirements"></div>
       </div>
     </div>
   </div>

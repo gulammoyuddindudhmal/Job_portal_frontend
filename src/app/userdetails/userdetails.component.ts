@@ -25,21 +25,24 @@ export class UserdetailsComponent {
   sendUpd:boolean;
   constructor(private router:Router){
     this.newUser=this.userService.getNewUser();
-    this.r=this.walkinservice.getAllRoles().map(t=>{
-      let p:{
-        id:number,
-        value:string,
-        isChk:boolean
-      }={
-        id:t.id,
-        value:t.title,
-        isChk:false
-      }
-      return p;
+    this.walkinservice.getAllRoles().then((t)=>{
+      this.r=t.map(t=>{
+        let p:{
+          id:number,
+          value:string,
+          isChk:boolean
+        }={
+          id:t.id,
+          value:t.title,
+          isChk:false
+        }
+        return p;
+      })
+      this.newUser.roles.forEach(t=>{
+        this.r[this.r.findIndex(d=>d.id==t)].isChk=true;
+        })
     })
-    this.newUser.roles.forEach(t=>{
-    this.r[this.r.findIndex(d=>d.id==t)].isChk=true;
-    })
+    
     console.log(this.r)
     this.details=new FormGroup({
       firstName:new FormControl(this.newUser.firstName,Validators.required),

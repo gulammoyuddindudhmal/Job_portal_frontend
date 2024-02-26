@@ -8,17 +8,17 @@
   <div class="horizontal-divider"></div>
   <div>
     <div class="graycolor">Date & Time of Walk-In :</div>
-    <p class="date">{{ walkin?.date }}</p>
-    <p>{{ timeslot }}</p>
+    <p class="date">{{ application.date }}</p>
+    <p>{{ application.time }}</p>
   </div>
   <div class="horizontal-divider"></div>
   <div>
     <div class="graycolor">Venue of Walk-In :</div>
     <p>
-      {{ walkin?.location?.venue }}<br />
-      {{ walkin?.location?.address }}<br />
-      {{ walkin?.city }} - {{ walkin?.location?.pincode }}<br />
-      {{ walkin?.location?.phone }}
+      {{ application.venue }}<br />
+      {{ application.address }}<br />
+      {{ application.city }} - {{ application.pincode }}<br />
+      {{ application.phone }}
     </p>
   </div>
   <div class="horizontal-divider"></div>

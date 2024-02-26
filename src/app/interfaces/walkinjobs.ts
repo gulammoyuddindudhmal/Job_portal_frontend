@@ -1,4 +1,5 @@
-import { Roles } from "./roles"
+import { RoleDetails } from "./role-details"
+
 
 export interface Walkinjobs {
     id:number,
@@ -6,20 +7,13 @@ export interface Walkinjobs {
     date:string,
     city:string,
     extraInfo:string|null,
-    expiresIn:number|null,
-    location:{
-        venue:string,
-        address:string,
-        pincode:string,
-        phone:string
-    }
-    roles:Roles[],
+    roles:RoleDetails[],
     timeslots:{
         id:number,
         time:string
     }[],
-    genIns:string[],
-    examIns:string[],
-    sysReq:string[],
-    process:string[]
+    genIns:string,
+    examIns:string,
+    sysReq:string,
+    process:string
 }

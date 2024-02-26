@@ -115,7 +115,7 @@ export class UserqualComponent {
       othersExp:new FormControl(this.newUser.otherExp),
       othersFam:new FormControl(this.newUser.otherFam)
     })
-    this.dispExp=this.newUser.applicantType=='fresher'?'none':'block';
+    this.dispExp=this.newUser.applicantType?'block':'none';
     this.newUser.expertise?.forEach(t=>{
       let i=this.expertise.findIndex(d=>d.value==t);
       this.expertise[i].isChk=true;
@@ -136,7 +136,7 @@ export class UserqualComponent {
       this.eduQ.value.location??'',
     )
     this.userservice.setProQuals(
-      this.dispExp=="none"?"fresher":"experienced",
+      this.dispExp=="none"?false:true,
       this.proQ.value.yoe??0,
       this.proQ.value.currentCTC??'',
       this.proQ.value.expectedCTC??'',
@@ -146,7 +146,7 @@ export class UserqualComponent {
       this.proQ.value.othersFam??'',
       this.onNotice,
       this.proQ.value.noticeEnd??'',
-      this.proQ.value.noticeDuration??'',
+      parseInt(this.proQ.value.noticeDuration)??0,
       this.haveAppeared,
       this.proQ.value.roleAppeared??'',
     )

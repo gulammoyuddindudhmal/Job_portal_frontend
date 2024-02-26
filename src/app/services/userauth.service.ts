@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { User } from '../interfaces/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserauthService {
-  private users:User[]=[];
+
   private newUser:User;
   private isloggedin:boolean;
-  private loggedInUser:number=-1;
-  constructor() {
+
+  constructor(private http:HttpClient) {
     this.isloggedin=false;
     this.newUser={
-      id:0,
       email:'',
-      password:'password',
       firstName:'',
       lastName:'',
       phone:'',
@@ -32,7 +32,7 @@ export class UserauthService {
       college:'',
       otherCollege:'',
       collegelocation:'',
-      applicantType:'experienced',
+      applicantType:true,
       yoe:0,
       currentCTC:'',
       expectedCTC:'',
@@ -42,44 +42,10 @@ export class UserauthService {
       otherFam:'',
       onNotice:false,
       haveAppeared:false,
-      noticeDuration:'',
+      noticeDuration:0,
       noticeEnd:'',
       roleAppeared:''
     }
-    this.users.push({
-      id:0,
-      email:'x@y.z',
-      password:'password',
-      firstName:'',
-      lastName:'',
-      phone:'',
-      resume:'',
-      portfolioURL:'',
-      roles:[],
-      referrer:'',
-      profilePhoto:'',
-      sendUpdates:false,
-      percentage:0,
-      yop:'',
-      qualification:'',
-      stream:'',
-      college:'',
-      otherCollege:'',
-      collegelocation:'',
-      applicantType:'experienced',
-      yoe:0,
-      currentCTC:'',
-      expectedCTC:'',
-      expertise:[],
-      otherExp:'',
-      familiar:[],
-      otherFam:'',
-      onNotice:false,
-      haveAppeared:false,
-      noticeDuration:'',
-      noticeEnd:'',
-      roleAppeared:''
-    })
   }
   setDetails(
     firstName:string,
@@ -123,7 +89,7 @@ export class UserauthService {
     console.log(this.newUser)
   }
   setProQuals(
-    applitype:string,
+    applitype:boolean,
     yoe:number,
     currentCTC:string,
     expectedCTC:string,
@@ -133,20 +99,20 @@ export class UserauthService {
     otherFam:string,
     onNotice:boolean,
     noticeEnd:string,
-    noticeDuration:string,
+    noticeDuration:number,
     haveAppeared:boolean,
     roleAppeared:string
   ){
     console.log(otherFam)
     this.newUser.applicantType=applitype;
-    this.newUser.yoe=applitype=="experienced"?yoe:null;
-    this.newUser.currentCTC=applitype=="experienced"?currentCTC:null;
-    this.newUser.expectedCTC=applitype=="experienced"?expectedCTC:null;
-    this.newUser.expertise=applitype=="experienced"?expertise:null;
-    this.newUser.otherExp=applitype=="experienced"?otherExp:null;
+    this.newUser.yoe=applitype?yoe:null;
+    this.newUser.currentCTC=applitype?currentCTC:null;
+    this.newUser.expectedCTC=applitype?expectedCTC:null;
+    this.newUser.expertise=applitype?expertise:[];
+    this.newUser.otherExp=applitype?otherExp:null;
     this.newUser.familiar=familiar;
     this.newUser.otherFam=otherFam;
-    this.newUser.onNotice=applitype=="experienced"?onNotice:false;
+    this.newUser.onNotice=applitype?onNotice:false;
     this.newUser.noticeDuration=onNotice?noticeDuration:null;
     this.newUser.noticeEnd=onNotice?noticeEnd:null;
     this.newUser.haveAppeared=haveAppeared;
@@ -157,9 +123,7 @@ export class UserauthService {
   }
   cancelNewUser(){
     this.newUser={
-      id:0,
       email:'',
-      password:'password',
       firstName:'',
       lastName:'',
       phone:'',
@@ -176,7 +140,7 @@ export class UserauthService {
       college:'',
       otherCollege:'',
       collegelocation:'',
-      applicantType:'experienced',
+      applicantType:true,
       yoe:0,
       currentCTC:'',
       expectedCTC:'',
@@ -186,110 +150,63 @@ export class UserauthService {
       otherFam:'',
       onNotice:false,
       haveAppeared:false,
-      noticeDuration:'',
+      noticeDuration:0,
       noticeEnd:'',
       roleAppeared:''
     }    
   }
-  saveUser():boolean{
-    let nu=this.newUser
-    if(
-      nu.firstName==''||
-      nu.lastName==''||
-      nu.email==''||
-      nu.phone==''||
-      nu.roles.length==0
-    ){
-      return false;
+  saveUser(){
+    let nu=this.newUser;
+    var x=nu.familiar.findIndex(t=>t=='Others');
+    if(x!=-1){
+      nu.familiar[x]=nu.otherFam??'';
     }
-    if(
-      nu.percentage==null||
-      nu.qualification==''||
-      nu.stream==''||
-      nu.college==''||
-      (nu.college=='Others'&&nu.otherCollege=='')||
-      nu.collegelocation==''
-    ){
-      return false;
+    x=nu.expertise.findIndex(t=>t=='Others');
+    if(x!=-1){
+      nu.expertise[x]=nu.otherExp??'';
     }
-    if(
-      nu.familiar.length==0||
-      (nu.familiar.includes('Others')&&nu.otherFam=='')
-    ){
-      return false;
-    }
-    if (nu.applicantType=="experienced"&&
-    (
-      nu.yoe==null||
-      nu.yoe==0||
-      nu.currentCTC==''||
-      nu.currentCTC==null||
-      nu.expectedCTC==''||
-      nu.expectedCTC==null||
-      nu.expertise==null||
-      nu.expertise?.length==0||
-      (nu.expertise.includes('Other')&&nu.otherExp=='')||
-      (nu.onNotice&&(
-        nu.noticeDuration==''||
-        nu.noticeDuration==null||
-        nu.noticeEnd==''||
-        nu.noticeEnd==null
-      ))
-    )
-    ){
-      return false;
-    }
-    let user:User={
-      id:this.users.length,
-      email:nu.email,
-      password:nu.password,
-      firstName:nu.firstName,
-      lastName:nu.lastName,
-      phone:nu.phone,
-      resume:nu.resume,
-      portfolioURL:nu.portfolioURL,
-      roles:nu.roles,
-      referrer:nu.referrer,
-      profilePhoto:nu.profilePhoto,
-      sendUpdates:nu.sendUpdates,
-      percentage:nu.percentage,
-      yop:nu.yop,
-      qualification:nu.qualification,
-      stream:nu.stream,
-      college:nu.college,
-      otherCollege:nu.otherCollege,
-      collegelocation:nu.collegelocation,
-      applicantType:nu.applicantType,
-      yoe:nu.yoe,
-      currentCTC:nu.currentCTC,
-      expectedCTC:nu.expectedCTC,
-      expertise:nu.expertise,
-      otherExp:nu.otherExp,
-      familiar:nu.familiar,
-      otherFam:nu.otherFam,
-      onNotice:nu.onNotice,
-      haveAppeared:nu.haveAppeared,
-      noticeDuration:nu.noticeDuration,
-      noticeEnd:nu.noticeEnd,
-      roleAppeared:nu.roleAppeared
-    }
-    this.users.push(user)
-    console.log(this.users)
-    return true;
+    return this.http.post<any>('http://localhost:5200/api/values',{
+        "Email": nu.email==''?null:nu.email,
+        "FirstName": nu.firstName==''?null:nu.firstName,
+        "LastName": nu.lastName==''?null:nu.lastName,
+        "Phone": nu.phone==''?null:nu.phone,
+        "Portfolio": nu.portfolioURL==''?null:nu.portfolioURL,
+        "Resume": nu.resume==''?null:nu.resume,
+        "Photo": nu.profilePhoto==''?null:nu.profilePhoto,
+        "Referrer": nu.referrer==''?null:nu.referrer,
+        "SendUpdates": nu.sendUpdates,
+        "Percentage": nu.percentage,
+        "YearOfPassing": nu.yop==''?null:nu.yop,
+        "Qualification": nu.qualification==''?null:nu.qualification,
+        "Stream": nu.stream==''?null:nu.stream,
+        "College": nu.college==''?null:nu.college=='other'?nu.otherCollege:nu.college,
+        "College_loc": nu.collegelocation==''?null:nu.collegelocation,
+        "IsExperienced": nu.applicantType,
+        "YearOfExperience": nu.applicantType?nu.yoe:null,
+        "CurrentCTC": nu.applicantType?nu.currentCTC?.toString():null,
+        "ExpectedCTC": nu.applicantType?nu.expectedCTC?.toString():null,
+        "OnNotice": nu.onNotice,
+        "EndOfNotice": nu.onNotice?nu.noticeEnd:null,
+        "PeriodOfNotice": nu.onNotice?nu.noticeDuration:null,
+        "HaveAppeared": nu.haveAppeared,
+        "RoleAppered": nu.roleAppeared,
+        "Familiar": nu.familiar,
+        "Expertise": nu.applicantType?nu.expertise:null,
+        "Role_id": nu.roles
+    });
   }
-  logIn(email:string,password:string):boolean{
-    let l=this.users.find(t=>t.email==email);
-    if(l?.password==password){
-      this.isloggedin=true;
-      this.loggedInUser=l.id;
-      return true;
-    }
-    return false;
+  logIn(email:string,password:string):Observable<string>{
+    return this.http.post('http://localhost:5200/api/login',{
+      "email":email,
+      "password":password
+    },{responseType:"text"})
   }
   isLoggedIn():boolean{
-    return this.isloggedin
-  }
-  getLoggedUser():number{
-    return this.loggedInUser;
+    var token = localStorage.getItem('access_token');
+    if(token){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

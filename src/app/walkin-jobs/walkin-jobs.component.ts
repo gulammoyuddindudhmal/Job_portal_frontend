@@ -7,21 +7,24 @@ import { Walkinjobs } from '../interfaces/walkinjobs';
 
 import { WalkinService } from '../services/walkin.service';
 import { ApplicationService } from '../services/application.service';
+import { Walkins } from '../interfaces/Walkins';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-walkin-jobs',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './walkin-jobs.component.html',
   styleUrl: './walkin-jobs.component.scss'
 })
 export class WalkinJobsComponent {
+  resume:string="";
   x:string="times";
   r:{
     id:number,
     value:string,
     isChk:boolean
-  }[];
-  timeslot:number;
+  }[]=[];
+  timeslot:number=0;
   applybtn:boolean;
   detail:Dropdown;
   roles:Dropdown[]=[];
@@ -30,7 +33,7 @@ export class WalkinJobsComponent {
   route: ActivatedRoute= inject(ActivatedRoute);
   applicationservice:ApplicationService=inject(ApplicationService)
   walkinId=-1;
-  constructor(private router:Router){
+   constructor(private router:Router){
     this.detail={
       opened:false,
       display:"none",
@@ -38,29 +41,40 @@ export class WalkinJobsComponent {
     }
     this.walkinId=Number(this.route.snapshot.params['id']);
     console.log(this.walkinId)
-    this.job=this.walkinservice.getWalkinJobsById(this.walkinId);
-    if(this.job){
-      for(let i=0;i<this.job.roles.length;i++){
-        this.roles.push({
-          opened:false,
-          display:"none",
-          img:"../../assets/expand-down-svgrepo-com.svg"
-        })
+    this.walkinservice.getWalkinJobsById(this.walkinId).subscribe(res=>{
+      this.job=res;
+      this.job.genIns=this.job.genIns.replace(/\n/g,'<br/>');
+      this.job.examIns=this.job.examIns.replace(/\n/g,'<br/>');
+      this.job.sysReq=this.job.sysReq.replace(/\n/g,'<br/>');
+      this.job.process=this.job.process.replace(/\n/g,'<br/>');
+      
+      console.log(this.job)
+      if(this.job){
+        for(let i=0;i<this.job.roles.length;i++){
+          this.job.roles[i].description=this.job.roles[i].description.replace(/\n/g,'<br/>');
+          this.job.roles[i].requirements=this.job.roles[i].requirements.replace(/\n/g,'<br/>');
+    
+          this.roles.push({
+            opened:false,
+            display:"none",
+            img:"../../assets/expand-down-svgrepo-com.svg"
+          })
+        }
       }
-    }
-    this.r=this.job?.roles.map(t=>{
-      let p:{
-        id:number,
-        value:string,
-        isChk:boolean
-      }={
-        id:t.id,
-        value:t.title,
-        isChk:false
-      }
-      return p;
-    })??[];
-    this.timeslot=0;
+      this.r=this.job?.roles.map(t=>{
+        let p:{
+          id:number,
+          value:string,
+          isChk:boolean
+        }={
+          id:t.id,
+          value:t.title,
+          isChk:false
+        }
+        return p;
+      })??[];
+      this.timeslot=this.job.timeslots[0].id;
+    });
     this.applybtn=this.r.length==0||this.r.filter(t=>t.isChk).length==0;
   };
 
@@ -92,16 +106,22 @@ export class WalkinJobsComponent {
     }
   }
   onApply(){
-    let id = this.applicationservice.apply(
+    if(this.resume!=""){
+      this.applicationservice.updateResume(this.resume).subscribe()
+    }
+    var id = 0;
+   this.applicationservice.apply(
       this.walkinId,
       this.r.filter(t=>t.isChk).map(t=>t.id),
       this.timeslot
-    );
-    if(id!=-1){
+    ).subscribe(res=>{
+      id=res
       window.alert("Application submitted successfully!!")
       this.router.navigate(['/walkin/application',id])
-    }else{
+    },error=>{
       window.alert("Please try again")
-    }
+    });
+    
+    
   }
 }

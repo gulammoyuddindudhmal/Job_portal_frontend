@@ -1,8 +1,5 @@
 <section class="job-list" *ngFor="let job of walkinJobs">
   <div class="job">
-    <div class="expiry" *ngIf="job.expiresIn">
-      <p>Expires in {{ job.expiresIn }} days</p>
-    </div>
     <h3>{{ job.title }}</h3>
     <div>
       <p class="graycolor">Date & Time :</p>
@@ -16,8 +13,8 @@
     <div class="horizontal-divider"></div>
     <div>
       <p class="graycolor">Job Roles :</p>
-      <div class="job-role-list" *ngFor="let role of job.roles">
-        <div class="job-role">
+      <div class="job-role-list">
+        <div class="job-role" *ngFor="let role of job.roles">
           <div>
             <img [src]="role.img" />
           </div>
@@ -25,8 +22,8 @@
         </div>
       </div>
     </div>
-    <div class="extra-info" *ngIf="job.extraInfo">
-      <p>{{ job.extraInfo }}</p>
+    <div class="extra-info" *ngIf="job.extra_info">
+      <p>{{ job.extra_info }}</p>
     </div>
     <div class="button-container">
       <button (click)="onClick($event)" [value]="job.id">

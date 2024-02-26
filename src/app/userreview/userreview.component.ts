@@ -17,11 +17,12 @@ export class UserreviewComponent {
   walkinservice:WalkinService=inject(WalkinService)
   userservice:UserauthService=inject(UserauthService)
   newUser:User;
-  roles:Roles[];
+  roles:Roles[]=[];
   constructor(private router:Router){
     this.newUser=this.userservice.getNewUser();
-    this.roles=this.walkinservice.getAllRoles();
-    console.log(typeof(this.newUser.onNotice));
+    this.walkinservice.getAllRoles().then((t)=>{
+      this.roles=t;
+    });
     
   }
   onClickPrev(){
@@ -35,11 +36,14 @@ export class UserreviewComponent {
     this.router.navigate(['/user/personal'])
   }
   onClickCreate(){
-    if(this.userservice.saveUser()){
-      window.alert('Registration Successful')
-      this.router.navigate(['/login'])
-    }else{
-      window.alert('Some details are missing!!.\nPlease fill it out')
-    }
+    this.userservice.saveUser().subscribe(res=>{
+      window.alert("User registration successful")
+    },error=>{
+      console.log(error);
+      window.alert('Error:'+error);
+    });
+  }
+  getRoleTitle(id:number){
+    return this.roles.find(t=>t.id=id)?.title;
   }
 }

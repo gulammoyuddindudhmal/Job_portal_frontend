@@ -1,7 +1,6 @@
 export interface Application {
-    id:number,
-    walkinId:number,
-    userId:number,
-    roles:number[],
-    timeslot:number
+    
+    WalkinJobId:number,
+    Roles:number[],
+    WalkinTimeId:number
 }
